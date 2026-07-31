@@ -558,8 +558,39 @@
   .contact-box p{color:var(--text-dim); max-width:540px; margin:0 auto 34px; font-size:15.5px;}
   .contact-btns{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
 
-  footer{padding:60px 0 0; background:#06090f; border-top:1px solid rgba(255,255,255,0.06);}
-  .wrap.site-footer{display:grid; gap:36px; grid-template-columns:minmax(240px,1.4fr) minmax(180px,0.95fr) minmax(220px,0.95fr); align-items:start; max-width:1160px; margin:0 auto; padding:0 20px;}
+  footer{position:relative; padding:60px 0 0; background:#06090f; border-top:1px solid rgba(255,255,255,0.06); overflow:hidden; isolation:isolate;}
+
+  /* animated footer background — matches hero circuit / gradient theme */
+  .footer-bg{position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden;}
+  .footer-bg::before{
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image: radial-gradient(ellipse 70% 90% at 50% 0%, black 30%, transparent 85%);
+    animation:footerGridDrift 22s linear infinite;
+  }
+  .footer-orb{position:absolute; border-radius:50%; filter:blur(60px); opacity:0.28; will-change:transform;}
+  .footer-orb.o1{width:340px; height:340px; left:-8%; top:-20%; background:var(--cyan); animation:footerFloat1 16s ease-in-out infinite;}
+  .footer-orb.o2{width:280px; height:280px; right:-6%; top:10%; background:var(--violet); animation:footerFloat2 19s ease-in-out infinite;}
+  .footer-orb.o3{width:220px; height:220px; left:38%; bottom:-30%; background:var(--mint); animation:footerFloat3 21s ease-in-out infinite;}
+  .footer-scan{
+    position:absolute; left:0; right:0; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(56,189,248,0.55), rgba(167,139,250,0.55), transparent);
+    box-shadow:0 0 14px 1px rgba(56,189,248,0.35);
+    animation:footerScan 7s ease-in-out infinite;
+  }
+  @keyframes footerGridDrift{ from{background-position:0 0, 0 0;} to{background-position:48px 48px, 48px 48px;} }
+  @keyframes footerFloat1{ 0%,100%{transform:translate(0,0);} 50%{transform:translate(30px,26px);} }
+  @keyframes footerFloat2{ 0%,100%{transform:translate(0,0);} 50%{transform:translate(-26px,20px);} }
+  @keyframes footerFloat3{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(18px,-22px) scale(1.08);} }
+  @keyframes footerScan{ 0%{top:0%; opacity:0;} 8%{opacity:1;} 50%{top:100%; opacity:1;} 58%{opacity:0;} 100%{top:100%; opacity:0;} }
+  @media (prefers-reduced-motion: reduce){
+    .footer-bg::before, .footer-orb, .footer-scan{animation:none;}
+  }
+
+  .wrap.site-footer{position:relative; z-index:1; display:grid; gap:36px; grid-template-columns:minmax(240px,1.4fr) minmax(180px,0.95fr) minmax(220px,0.95fr); align-items:start; max-width:1160px; margin:0 auto; padding:0 20px;}
   .site-footer .footer-brand{display:flex; flex-direction:column; gap:16px;}
   .site-footer .footer-brand .eyebrow{font-family:'JetBrains Mono'; letter-spacing:0.22em; text-transform:uppercase; color:var(--cyan); font-size:11px;}
   .site-footer .footer-brand h3{font-size:clamp(24px,2.4vw,30px); margin:0; color:var(--text); line-height:1.25;}
@@ -570,10 +601,17 @@
   .footer-section a:hover{color:var(--text); transform:translateX(2px);}
   .footer-social a{display:flex; align-items:center; gap:12px; padding:8px 0;}
   .footer-social a img{width:18px; height:18px; filter:brightness(1.15);}
-  .footer-bottom{border-top:1px solid rgba(255,255,255,0.08); margin-top:32px; padding:24px 20px 28px;}
-  .footer-bottom .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px;}
+  .footer-bottom{position:relative; z-index:1; border-top:1px solid rgba(255,255,255,0.08); margin-top:32px; padding:24px 20px 28px;}
+  .footer-bottom .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
   .footer-bottom p{color:var(--text-faint); font-size:13px; margin:0;}
   .footer-bottom .btn-primary{padding:10px 18px; min-width:140px; border-radius:999px;}
+  .footer-status{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono'; font-size:11.5px; letter-spacing:0.04em;
+    color:var(--mint);
+  }
+  .footer-status .status-dot{width:6px; height:6px; border-radius:50%; background:var(--mint); box-shadow:0 0 0 0 rgba(94,234,212,0.6); animation:pulseDot 2s infinite;}
+  @media (max-width:640px){ .footer-bottom .wrap{justify-content:center; text-align:center;} }
   @media (max-width:880px){
     .wrap.site-footer{grid-template-columns:1fr; text-align:left; padding:0 16px;}
     .site-footer .footer-brand,
@@ -1342,6 +1380,12 @@
 </main>
 
 <footer>
+  <div class="footer-bg" aria-hidden="true">
+    <div class="footer-orb o1"></div>
+    <div class="footer-orb o2"></div>
+    <div class="footer-orb o3"></div>
+    <div class="footer-scan"></div>
+  </div>
   <div class="wrap site-footer">
     <div class="footer-brand">
       <span class="eyebrow">Amit Kumar</span>
@@ -1366,6 +1410,7 @@
   <div class="footer-bottom">
     <div class="wrap">
       <p>© 2026 Amit Kumar · Built with care.</p>
+      <span class="footer-status"><span class="status-dot"></span>Available for new roles</span>
       <a class="btn btn-primary" href="resume_amit_kumar.pdf" download>
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
