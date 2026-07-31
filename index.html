@@ -53,7 +53,9 @@
   .section-watermark{
     position:absolute; top:6px; right:0; z-index:0; pointer-events:none; user-select:none;
     font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:clamp(56px,9vw,130px);
-    color:rgba(231,234,240,0.045); -webkit-text-stroke:1.5px rgba(231,234,240,0.11); letter-spacing:2px;
+    color:transparent; -webkit-text-fill-color:transparent;
+    -webkit-text-stroke:1.4px rgba(255,255,255,0.10); /* subtle white outline */
+    letter-spacing:2px;
     line-height:1; white-space:nowrap;
   }
   @media (max-width:920px){ .section-watermark{display:none;} }
@@ -148,7 +150,7 @@
   nav.links a:hover{color:var(--text);}
   .btn{
     display:inline-flex; align-items:center; gap:8px;
-    padding:10px 18px; border-radius:10px; font-size:14px; font-weight:500;
+    padding:10px 18px; border-radius:999px; font-size:14px; font-weight:500;
     border:1px solid var(--border); transition:all .2s ease; white-space:nowrap;
   }
   .btn-primary{background:var(--gradient); color:#0A0E14; border:none; font-weight:600;}
@@ -352,12 +354,12 @@
   .logo-item{
     display:flex; align-items:center; gap:10px; white-space:nowrap;
     font-family:'JetBrains Mono'; font-size:13px; color:var(--text-faint);
-    opacity:0.75; transition:opacity .25s, color .25s, filter .25s;
-    filter:grayscale(1);
+    opacity:0.9; transition:none; filter:grayscale(0.35);
   }
-  .logo-item:hover{opacity:1; color:var(--text); filter:grayscale(0);}
-  .logo-item img{width:22px; height:22px; opacity:0.8;}
-  .logo-item:hover img{opacity:1;}
+  /* neutralize hover — keep visuals static for a darker aesthetic */
+  .logo-item:hover{opacity:0.9; color:var(--text-faint); filter:grayscale(0.35);}
+  .logo-item img{width:22px; height:22px; opacity:0.9;}
+  .logo-item:hover img{opacity:0.9;}
   .btn img{width:18px; height:18px; margin-right:8px; vertical-align:middle;}
   @media (prefers-reduced-motion: reduce){
     .logo-track{animation:none;}
@@ -508,7 +510,15 @@
 
   /* open source */
   .os-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
-  .os-card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; display:flex; flex-direction:column; gap:10px;}
+  .os-card{background:linear-gradient(180deg, rgba(8,11,15,0.88), var(--surface-2)); border:1px solid rgba(255,255,255,0.03); border-radius:14px; padding:24px; display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden;}
+
+  /* faint background logos for specific open-source items */
+  .os-card.os-npm::before,
+  .os-card.os-devto::before{
+    content:''; position:absolute; right:18px; top:12px; width:110px; height:110px; background-repeat:no-repeat; background-size:contain; opacity:0.08; pointer-events:none; filter:brightness(0.9) contrast(0.95);
+  }
+  .os-card.os-npm::before{ background-image:url('https://cdn.simpleicons.org/npm/CB3837'); }
+  .os-card.os-devto::before{ background-image:url('https://cdn.simpleicons.org/devdotto/E7EAF0'); }
   .os-kind{font-family:'JetBrains Mono'; font-size:11px; color:var(--cyan); letter-spacing:0.05em;}
   .os-card h4{font-size:16px;}
   .os-card p{font-size:13.5px; color:var(--text-dim);}
@@ -596,15 +606,18 @@
   .spot-card::before{
     content:''; position:absolute; inset:0; z-index:0; opacity:0; pointer-events:none;
     border-radius:inherit;
-    background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%), rgba(56,189,248,0.14), transparent 70%);
-    transition:opacity .35s ease;
+    background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%), rgba(56,189,248,0.08), transparent 70%);
+    transition:none;
   }
-  .spot-card:hover::before{opacity:1;}
+  /* disable hover glow for a more muted, dark layout */
+  .spot-card:hover::before{opacity:0;}
   .spot-card > *{position:relative; z-index:1;}
 
   /* button premium sheen */
   .btn{position:relative; overflow:hidden; isolation:isolate;}
   .btn:hover{box-shadow:0 6px 26px -6px rgba(56,189,248,0.30);}
+  .btn.icon-only{padding:6px; width:40px; height:40px; display:inline-flex; align-items:center; justify-content:center; border-radius:10px; border:none; background:transparent; box-shadow:none;}
+  .btn.icon-only img{width:18px; height:18px; margin:0;}
   .btn-primary::after{
     content:''; position:absolute; top:0; left:-130%; width:55%; height:100%; z-index:1;
     background:linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
@@ -707,9 +720,27 @@
       <a href="#opensource">Open Source</a>
       <a href="#achievements">Achievements</a>
       <a href="#contact">Contact</a>
-      <a class="btn btn-primary" href="resume_amit_kumar.pdf" download>Resume ↓</a>
+      <a class="btn btn-primary" href="resume_amit_kumar.pdf" download aria-label="Resume">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          Resume</a>
+
+
     </nav>
-    <a class="btn btn-primary nav-btn-desktop" href="resume_amit_kumar.pdf" download style="display:none;" id="deskResume">Download Resume</a>
+
+
+    <a class="btn btn-primary nav-btn-desktop"  download style="display:none;" id="deskResume" href="resume_amit_kumar.pdf" download aria-label="Resume">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          Resume</a>
+
+
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
   </div>
 </header>
@@ -724,15 +755,34 @@
     <div class="orb orb-3" data-parallax data-speed="0.16" aria-hidden="true"></div>
     <div class="wrap hero-grid">
       <div data-parallax data-speed="-0.04">
-        <div class="status-pill"><span class="status-dot"></span>Open to React Native opportunities</div>
+        <div class="status-pill"><span class="status-dot"></span>Available for new opportunities</div>
         <span class="eyebrow">SENIOR REACT NATIVE ENGINEER · 5+ YEARS</span>
         <h1>I build scalable, secure &amp; <span class="grad">high-performance</span> mobile experiences.</h1>
         <p class="lead">Senior React Native Engineer with 5+ years of experience building cross-platform applications for Android, iOS, and PWA — with expertise in the React Native New Architecture, performance optimization, security, native integrations, and CI/CD automation.</p>
         <div class="cta-row">
-          <a href="#projects" class="btn btn-primary">View My Work</a>
-          <a href="resume_amit_kumar.pdf" download class="btn btn-ghost">Download Resume</a>
-          <a href="https://github.com/amitkumarcoding" target="_blank" rel="noopener" class="btn btn-ghost"><img src="https://cdn.simpleicons.org/github/E7EAF0" alt="GitHub">GitHub</a>
-          <a href="https://in.linkedin.com/in/imamitkmr" target="_blank" rel="noopener" class="btn btn-ghost"><img src="./images/linkedin.png" alt="LinkedIn">LinkedIn</a>
+          <a href="#contact" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="7" width="18" height="13" rx="2" />
+              <path d="M16 7V5a2 2 0 0 0-2-2H10a2 2 0 0 0-2 2v2" />
+              <path d="M3 11h18" />
+            </svg>
+            Hire me
+          </a>
+          <!-- <a href="resume_amit_kumar.pdf" download class="btn btn-ghost">Resume</a> -->
+
+          <a href="resume_amit_kumar.pdf" download class="btn btn-ghost" aria-label="Resume">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          Resume</a>
+
+
+          <a href="https://github.com/amitkumarcoding" target="_blank" rel="noopener" class="btn btn-ghost icon-only" aria-label="GitHub"><img src="https://cdn.simpleicons.org/github/E7EAF0" alt="GitHub"></a>
+          <a href="https://in.linkedin.com/in/imamitkmr" target="_blank" rel="noopener" class="btn btn-ghost icon-only" aria-label="LinkedIn"><img src="./images/linkedin.png" alt="LinkedIn"></a>
+          <a href="https://www.npmjs.com/" target="_blank" rel="noopener" class="btn btn-ghost icon-only" aria-label="NPM"><img src="https://cdn.simpleicons.org/npm/CB3837" alt="NPM"></a>
+          <a href="https://dev.to/amitkumar13" target="_blank" rel="noopener" class="btn btn-ghost icon-only" aria-label="Dev.to"><img src="https://cdn.simpleicons.org/devdotto/E7EAF0" alt="Dev.to"></a>
         </div>
         <div class="contact-row">
           <a href="mailto:amitaquarius13@gmail.com">amitaquarius13@gmail.com</a>
@@ -1149,25 +1199,25 @@
         <h2>Open Source &amp; Technical Writing</h2>
       </div>
       <div class="os-grid">
-        <div class="os-card reveal spot-card">
+        <div class="os-card reveal spot-card os-npm">
           <span class="os-kind mono">NPM PACKAGE</span>
           <h4>react-native-customizable-image-crop-picker</h4>
           <p>Customizable image crop picker for React Native — Android &amp; iOS.</p>
           <a class="os-link mono" href="https://www.npmjs.com/package/react-native-customizable-image-crop-picker" target="_blank" rel="noopener">npmjs.com ↗</a>
         </div>
-        <div class="os-card reveal spot-card">
+        <div class="os-card reveal spot-card os-npm">
           <span class="os-kind mono">NPM PACKAGE</span>
           <h4>react-native-multi-flow-accordion</h4>
           <p>Custom accordion component for React Native — Android &amp; iOS.</p>
           <a class="os-link mono" href="https://www.npmjs.com/package/react-native-multi-flow-accordion" target="_blank" rel="noopener">npmjs.com ↗</a>
         </div>
-        <div class="os-card reveal spot-card">
+        <div class="os-card reveal spot-card os-devto">
           <span class="os-kind mono">DEV.TO ARTICLE</span>
           <h4>Offline Audio &amp; Video Downloads in React Native</h4>
           <p>A technical walkthrough of building offline media downloads for React Native apps.</p>
           <a class="os-link mono" href="https://dev.to/amitkumar13/transform-your-react-native-app-with-offline-audio-video-downloads-2hmd" target="_blank" rel="noopener">dev.to ↗</a>
         </div>
-        <div class="os-card reveal spot-card">
+        <div class="os-card reveal spot-card os-devto">
           <span class="os-kind mono">DEV.TO ARTICLE</span>
           <h4>A Complete Guide to Deep Linking with Custom Domain in React Native</h4>
           <p>An end-to-end guide to implementing custom-domain deep linking in React Native.</p>
@@ -1247,9 +1297,17 @@
         <p>I'm open to opportunities where I can contribute to challenging mobile engineering problems, scalable architecture, performance, and product development.</p>
         <div class="contact-btns">
           <a class="btn btn-primary" href="mailto:amitaquarius13@gmail.com"><img src="https://cdn.simpleicons.org/Gmail" alt="Email">Email Me</a>
-          <a class="btn btn-ghost" href="https://in.linkedin.com/in/imamitkmr" target="_blank" rel="noopener"><img src="./images/linkedin.png" alt="LinkedIn">LinkedIn</a>
-          <a class="btn btn-ghost" href="https://github.com/amitkumarcoding" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/github/E7EAF0" alt="GitHub">GitHub</a>
-          <a class="btn btn-ghost" href="resume_amit_kumar.pdf" download> Download Resume</a>
+          <a class="btn btn-ghost icon-only" href="https://in.linkedin.com/in/imamitkmr" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="./images/linkedin.png" alt="LinkedIn"></a>
+          <a class="btn btn-ghost icon-only" href="https://github.com/amitkumarcoding" target="_blank" rel="noopener" aria-label="GitHub"><img src="https://cdn.simpleicons.org/github/E7EAF0" alt="GitHub"></a>
+          <a class="btn btn-ghost" href="resume_amit_kumar.pdf" download aria-label="Resume">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          Resume</a>
+
+          
         </div>
       </div>
       <!-- "https://cdn.simpleicons.org/github/E7EAF0 -->
