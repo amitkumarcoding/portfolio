@@ -563,6 +563,26 @@
   .os-link:hover{text-decoration:underline;}
 
   /* awards */
+    .cert-role{margin-bottom:44px;}
+  .cert-role:last-child{margin-bottom:0;}
+  .cert-role h3{font-size:18px; margin-bottom:4px;}
+  .cert-role .cert-meta{font-size:13.5px; color:var(--text-dim); margin-bottom:18px;}
+  .cert-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px;}
+  .cert-thumb{display:block; width:100%; padding:0; text-align:left; cursor:zoom-in; background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; color:inherit; font:inherit; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;}
+  .cert-thumb:hover,.cert-thumb:focus-visible{transform:translateY(-4px); border-color:var(--cyan); box-shadow:0 12px 30px rgba(0,0,0,.35); outline:none;}
+  .cert-thumb .img{aspect-ratio:4/3; background:var(--surface-2); display:flex; align-items:center; justify-content:center; overflow:hidden;}
+  .cert-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+  .cert-thumb .miss{padding:16px; text-align:center; font-size:12.5px; color:var(--text-faint);}
+  .cert-thumb .cap{padding:12px 14px; font-size:13.5px; color:var(--text); border-top:1px solid var(--border-soft);}
+  .cert-thumb .cap small{display:block; color:var(--text-dim); font-size:12px; margin-top:2px;}
+  .lb{position:fixed; inset:0; z-index:1000; background:rgba(5,8,12,.88); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:24px;}
+  .lb.open{display:flex;}
+  .lb figure{max-width:min(960px,100%); margin:0; text-align:center;}
+  .lb img{max-width:100%; max-height:78vh; border-radius:10px; display:block; margin:0 auto; background:var(--surface);}
+  .lb figcaption{margin-top:14px; color:var(--text); font-size:15px;}
+  .lb button{position:absolute; background:var(--surface-2); color:var(--text); border:1px solid var(--border); width:44px; height:44px; border-radius:50%; font-size:20px; cursor:pointer;}
+  .lb button:hover,.lb button:focus-visible{border-color:var(--cyan); outline:none;}
+  .lb .x{top:20px; right:20px;} .lb .pv{left:20px; top:50%;} .lb .nx{right:20px; top:50%;}
   .award-row{display:flex; gap:18px; padding:20px 0; border-bottom:1px solid var(--border-soft);}
   .award-row:last-child{border-bottom:none;}
   .award-year{font-family:'JetBrains Mono'; font-size:12.5px; color:var(--amber); min-width:70px; padding-top:2px;}
@@ -1327,6 +1347,53 @@
       </div>
     </div>
   </section>
+
+  <!-- AWARD CERTIFICATES -->
+  <section class="section-pad" id="certificates" style="border-top:1px solid var(--border-soft);">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">// CERTIFICATES</span>
+        <h2>Award certificates</h2>
+        <p>Click any certificate to view it full size.</p>
+      </div>
+      <div class="reveal">
+        <div class="cert-role">
+          <h3>Senior Software Engineer</h3>
+          <div class="cert-meta">TO THE NEW · Oct 2025 – Present</div>
+          <div class="cert-grid">
+            <button class="cert-thumb" data-cap="Spot Award" data-src="images/spotawards.jpg"><div class="img"><img src="images/spotawards.jpg" alt="Spot Award" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/spot-award-amazon.png'}))"></div><div class="cap">Spot Award<small>Amazon project</small></div></button>
+            <button class="cert-thumb" data-cap="Star Performer of the Month" data-src="images/star.jpg"><div class="img"><img src="images/star.jpg" alt="Star Performer of the Month" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/star-performer-month.png'}))"></div><div class="cap">Star Performer of the Month<small>TO THE NEW</small></div></button>
+          </div>
+        </div>
+        <div class="cert-role">
+          <h3>Software Engineer</h3>
+          <div class="cert-meta">TO THE NEW · Mar 2022 – Oct 2025</div>
+          <div class="cert-grid">
+            <button class="cert-thumb" data-cap="Team Award" data-src="images/teamawards.jpg"><div class="img"><img src="images/teamawards.jpg" alt="Team Award" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/team-award-1.png'}))"></div><div class="cap">Team Award<small>Customer Delight</small></div></button>
+            <button class="cert-thumb" data-cap="Team Award" data-src="images/teamawards2.jpg"><div class="img"><img src="images/teamawards2.jpg" alt="Team Award" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/team-award-2.png'}))"></div><div class="cap">Team Award<small>Customer Delight</small></div></button>
+            <button class="cert-thumb" data-cap="Core Value" data-src="images/improvement.jpg"><div class="img"><img src="images/improvement.jpg" alt="Core Value" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/continuous-improvement.png'}))"></div><div class="cap">Core Value<small>Continuous Improvement</small></div></button>
+            <button class="cert-thumb" data-cap="Team Award" data-src="images/teamawards3.jpg"><div class="img"><img src="images/teamawards3.jpg" alt="Team Award" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/team-award-3.png'}))"></div><div class="cap">Team Award<small>Customer Delight</small></div></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Certificate viewer">
+    <button class="x" aria-label="Close">&times;</button><button class="pv" aria-label="Previous">&#8249;</button><button class="nx" aria-label="Next">&#8250;</button>
+    <figure><img alt=""><figcaption></figcaption></figure>
+  </div>
+  <script>
+  (function(){
+    var th=[].slice.call(document.querySelectorAll('.cert-thumb')),lb=document.getElementById('lb'),im=lb.querySelector('img'),cp=lb.querySelector('figcaption'),i=0;
+    function show(n){i=(n+th.length)%th.length;var b=th[i];if(!b.querySelector('img')){return}im.src=b.dataset.src;im.alt=b.dataset.cap;cp.textContent=b.dataset.cap+' — '+b.querySelector('small').textContent;lb.classList.add('open');}
+    th.forEach(function(b,n){b.addEventListener('click',function(){show(n)})});
+    lb.querySelector('.x').onclick=function(){lb.classList.remove('open')};
+    lb.querySelector('.pv').onclick=function(){show(i-1)};lb.querySelector('.nx').onclick=function(){show(i+1)};
+    lb.addEventListener('click',function(e){if(e.target===lb)lb.classList.remove('open')});
+    document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowLeft')show(i-1);if(e.key==='ArrowRight')show(i+1);});
+  })();
+  </script>
 
   <!-- EDUCATION / CERTS / LEADERSHIP -->
   <section class="section-pad" style="border-top:1px solid var(--border-soft);">
