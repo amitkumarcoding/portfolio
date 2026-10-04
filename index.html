@@ -562,32 +562,62 @@
   .os-link{font-family:'JetBrains Mono'; font-size:12.5px; color:var(--mint); margin-top:auto;}
   .os-link:hover{text-decoration:underline;}
 
-  /* awards */
-    .cert-role{margin-bottom:44px;}
+  /* awards: timeline */
+  .award-list{position:relative; max-width:900px; margin-left:0;}
+  .award-list::before{content:''; position:absolute; left:118px; top:8px; bottom:8px; width:1px; background:linear-gradient(180deg, var(--amber), var(--border) 22%, var(--border) 100%);}
+  .award-row{display:grid; grid-template-columns:104px 1fr; gap:0 30px; padding:0 0 30px; position:relative;}
+  .award-row:last-child{padding-bottom:0;}
+  .award-year{font-family:'JetBrains Mono'; font-size:12.5px; color:var(--text-dim); text-align:right; padding-top:3px; line-height:1.3;}
+  .award-row::before{content:''; position:absolute; left:114px; top:8px; width:9px; height:9px; border-radius:50%; background:var(--bg); border:2px solid var(--text-faint);}
+  .award-body{padding-bottom:2px;}
+  .award-body h4{font-size:16.5px; margin-bottom:6px; line-height:1.35;}
+  .award-body p{font-size:14px; color:var(--text-dim); max-width:640px;}
+  .award-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+  .award-tag{font-family:'JetBrains Mono'; font-size:11.5px; color:var(--text-dim); border:1px solid var(--border); border-radius:999px; padding:3px 11px; background:var(--surface);}
+  .award-row.top .award-year{color:var(--amber);}
+  .award-row.top::before{background:var(--amber); border-color:var(--amber); box-shadow:0 0 0 5px rgba(242,184,114,.14);}
+  .award-row.top .award-body{background:linear-gradient(135deg, rgba(242,184,114,.09), rgba(167,139,250,.05) 70%); border:1px solid rgba(242,184,114,.28); border-radius:14px; padding:20px 22px;}
+  .award-row.top .award-body h4{font-size:19px;}
+  .award-row.top .award-tag{border-color:rgba(242,184,114,.35); color:var(--amber); background:transparent;}
+
+  /* certificates */
+  .cert-role{margin-bottom:56px;}
   .cert-role:last-child{margin-bottom:0;}
-  .cert-role h3{font-size:18px; margin-bottom:4px;}
-  .cert-role .cert-meta{font-size:13.5px; color:var(--text-dim); margin-bottom:18px;}
-  .cert-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px;}
-  .cert-thumb{display:block; width:100%; padding:0; text-align:left; cursor:zoom-in; background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; color:inherit; font:inherit; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;}
-  .cert-thumb:hover,.cert-thumb:focus-visible{transform:translateY(-4px); border-color:var(--cyan); box-shadow:0 12px 30px rgba(0,0,0,.35); outline:none;}
-  .cert-thumb .img{aspect-ratio:4/3; background:var(--surface-2); display:flex; align-items:center; justify-content:center; overflow:hidden;}
-  .cert-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+  .cert-role-head{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; padding-bottom:14px; margin-bottom:24px; border-bottom:1px solid var(--border-soft);}
+  .cert-role h3{font-size:19px;}
+  .cert-role .cert-meta{font-size:13.5px; color:var(--text-dim);}
+  .cert-role .cert-count{margin-left:auto; font-family:'JetBrains Mono'; font-size:12px; color:var(--text-faint);}
+  .cert-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:22px;}
+  .cert-thumb{display:block; width:100%; padding:0; text-align:left; cursor:zoom-in; background:none; border:0; color:inherit; font:inherit; position:relative; transition:transform .3s cubic-bezier(.16,1,.3,1);}
+  .cert-thumb .frame{position:relative; padding:10px; border-radius:14px; background:linear-gradient(145deg, rgba(242,184,114,.55), rgba(167,139,250,.35) 45%, rgba(56,189,248,.35)); transition:box-shadow .3s ease;}
+  .cert-thumb .img{aspect-ratio:4/3; background:#0B0F16; border-radius:7px; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);}
+  .cert-thumb img{width:100%; height:100%; object-fit:contain; display:block;}
   .cert-thumb .miss{padding:16px; text-align:center; font-size:12.5px; color:var(--text-faint);}
-  .cert-thumb .cap{padding:12px 14px; font-size:13.5px; color:var(--text); border-top:1px solid var(--border-soft);}
-  .cert-thumb .cap small{display:block; color:var(--text-dim); font-size:12px; margin-top:2px;}
-  .lb{position:fixed; inset:0; z-index:1000; background:rgba(5,8,12,.88); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:24px;}
+  .cert-thumb .cap{padding:14px 4px 0; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:600; color:var(--text);}
+  .cert-thumb .cap small{display:block; font-family:'Inter',sans-serif; font-weight:400; color:var(--text-dim); font-size:13px; margin-top:2px;}
+  .cert-thumb .zoom{position:absolute; top:20px; right:20px; width:32px; height:32px; border-radius:50%; background:rgba(10,14,20,.82); border:1px solid var(--border); color:var(--text); font-size:15px; display:flex; align-items:center; justify-content:center; opacity:0; transform:scale(.85); transition:opacity .25s ease, transform .25s ease;}
+  .cert-thumb:hover,.cert-thumb:focus-visible{transform:translateY(-4px); outline:none;}
+  .cert-thumb:hover .frame,.cert-thumb:focus-visible .frame{box-shadow:0 18px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(242,184,114,.4);}
+  .cert-thumb:hover .zoom,.cert-thumb:focus-visible .zoom{opacity:1; transform:scale(1);}
+  .cert-thumb:focus-visible .frame{box-shadow:0 0 0 2px var(--cyan);}
+  @media (hover:none){ .cert-thumb .zoom{opacity:1; transform:none;} }
+  .lb{position:fixed; inset:0; z-index:1000; background:rgba(5,8,12,.9); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; padding:24px;}
   .lb.open{display:flex;}
   .lb figure{max-width:min(960px,100%); margin:0; text-align:center;}
-  .lb img{max-width:100%; max-height:78vh; border-radius:10px; display:block; margin:0 auto; background:var(--surface);}
-  .lb figcaption{margin-top:14px; color:var(--text); font-size:15px;}
+  .lb img{max-width:100%; max-height:76vh; border-radius:10px; display:block; margin:0 auto; background:var(--surface); box-shadow:0 30px 80px rgba(0,0,0,.6);}
+  .lb figcaption{margin-top:16px; color:var(--text); font-size:15px;}
+  .lb figcaption .n{display:block; margin-top:4px; font-family:'JetBrains Mono'; font-size:12px; color:var(--text-faint);}
   .lb button{position:absolute; background:var(--surface-2); color:var(--text); border:1px solid var(--border); width:44px; height:44px; border-radius:50%; font-size:20px; cursor:pointer;}
-  .lb button:hover,.lb button:focus-visible{border-color:var(--cyan); outline:none;}
+  .lb button:hover,.lb button:focus-visible{border-color:var(--amber); outline:none;}
   .lb .x{top:20px; right:20px;} .lb .pv{left:20px; top:50%;} .lb .nx{right:20px; top:50%;}
-  .award-row{display:flex; gap:18px; padding:20px 0; border-bottom:1px solid var(--border-soft);}
-  .award-row:last-child{border-bottom:none;}
-  .award-year{font-family:'JetBrains Mono'; font-size:12.5px; color:var(--amber); min-width:70px; padding-top:2px;}
-  .award-row h4{font-size:15.5px; margin-bottom:4px;}
-  .award-row p{font-size:13.5px; color:var(--text-dim);}
+  @media (max-width:640px){
+    .award-list::before{left:5px;}
+    .award-row{grid-template-columns:1fr; padding-left:28px; gap:4px;}
+    .award-row::before{left:1px; top:6px;}
+    .award-year{text-align:left; padding-top:0;}
+    .cert-role .cert-count{margin-left:0; width:100%;}
+    .lb .pv,.lb .nx{top:auto; bottom:20px;}
+  }
 
   /* edu / cert / leadership */
   .triple{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
@@ -1318,31 +1348,42 @@
       <div class="section-head reveal">
         <span class="section-eyebrow">// RECOGNITION</span>
         <h2>Awards &amp; Recognition</h2>
+        <p>Recognition from TO THE NEW across the Idanim and Bally's Rewards projects, newest first.</p>
       </div>
       <div class="reveal">
-        <div class="award-row">
-          <div class="award-year mono">FY'26</div>
-          <div><h4>Star Performer Award</h4><p>Recognized as a Star Performer for consistently delivering high-impact projects, demonstrating technical excellence, and contributing to team success.</p></div>
+        <div class="award-list">
+        <div class="award-row top">
+          <div class="award-year">FY'26</div>
+          <div class="award-body"><h4>Star Performer Award</h4><p>Recognized for consistently delivering high-impact projects, demonstrating technical excellence, and contributing to team success.</p><div class="award-tags"><span class="award-tag">TO THE NEW</span><span class="award-tag">Bally's Rewards</span></div></div>
         </div>
         <div class="award-row">
-          <div class="award-year mono">Q2 FY'25</div>
-          <div><h4>Quarterly Team Award — Customer Delight</h4><p>Recognized for delivering exceptional customer experiences through strong collaboration and execution.</p></div>
+          <div class="award-year">Sr. Engineer</div>
+          <div class="award-body"><h4>Star Performer of the Month</h4><p>Monthly recognition at TO THE NEW. Certificate below.</p><div class="award-tags"><span class="award-tag">TO THE NEW</span></div></div>
         </div>
         <div class="award-row">
-          <div class="award-year mono">FY'24</div>
-          <div><h4>Aeropay Feature Delivery</h4><p>Successfully delivered the Aeropay payment integration within a challenging timeline while maintaining high quality.</p></div>
+          <div class="award-year">Sr. Engineer</div>
+          <div class="award-body"><h4>Spot Award</h4><p>Spot recognition for work on the Amazon project. Certificate below.</p><div class="award-tags"><span class="award-tag">TO THE NEW</span><span class="award-tag">Amazon project</span></div></div>
         </div>
         <div class="award-row">
-          <div class="award-year mono">FY'24</div>
-          <div><h4>Continuous Improvement Awards</h4><p>Recognized for consistently contributing to process improvements and optimizing workflows.</p></div>
+          <div class="award-year">Q2 FY'25</div>
+          <div class="award-body"><h4>Quarterly Team Award: Customer Delight</h4><p>Recognized for delivering exceptional customer experiences through strong collaboration and execution.</p><div class="award-tags"><span class="award-tag">Team award</span><span class="award-tag">Bally's Rewards</span></div></div>
         </div>
         <div class="award-row">
-          <div class="award-year mono">2024</div>
-          <div><h4>Idanim July Release Milestone</h4><p>Recognized for key contributions to the Kids Meditations milestones in the Idanim July release.</p></div>
+          <div class="award-year">FY'24</div>
+          <div class="award-body"><h4>Aeropay Feature Delivery</h4><p>Delivered the Aeropay payment integration within a challenging timeline while maintaining high quality.</p><div class="award-tags"><span class="award-tag">Payments</span><span class="award-tag">Bally's Rewards</span></div></div>
         </div>
         <div class="award-row">
-          <div class="award-year mono">Q2 FY'23</div>
-          <div><h4>Quarterly Team Award — Customer Delight</h4><p>Honored for delivering exceptional customer experiences through great teamwork and dedication.</p></div>
+          <div class="award-year">FY'24</div>
+          <div class="award-body"><h4>Continuous Improvement Award</h4><p>Recognized for consistently contributing to process improvements and optimizing workflows.</p><div class="award-tags"><span class="award-tag">Core value</span><span class="award-tag">Idanim</span></div></div>
+        </div>
+        <div class="award-row">
+          <div class="award-year">2022–24</div>
+          <div class="award-body"><h4>Idanim July Release Milestone</h4><p>Recognized for key contributions to the Kids Meditations milestones in the Idanim July release.</p><div class="award-tags"><span class="award-tag">Release milestone</span><span class="award-tag">Idanim</span></div></div>
+        </div>
+        <div class="award-row">
+          <div class="award-year">Q2 FY'23</div>
+          <div class="award-body"><h4>Quarterly Team Award: Customer Delight</h4><p>Honored for delivering exceptional customer experiences through great teamwork and dedication.</p><div class="award-tags"><span class="award-tag">Team award</span><span class="award-tag">Idanim</span></div></div>
+        </div>
         </div>
       </div>
     </div>
@@ -1354,25 +1395,23 @@
       <div class="section-head reveal">
         <span class="section-eyebrow">// CERTIFICATES</span>
         <h2>Award certificates</h2>
-        <p>Click any certificate to view it full size.</p>
+        <p>Select a certificate to view it full size. Arrow keys move between them.</p>
       </div>
       <div class="reveal">
         <div class="cert-role">
-          <h3>Senior Software Engineer</h3>
-          <div class="cert-meta">TO THE NEW · Oct 2025 – Present</div>
+          <div class="cert-role-head"><h3>Senior Software Engineer</h3><span class="cert-meta">TO THE NEW · Oct 2025 – Present</span><span class="cert-count">2 certificates</span></div>
           <div class="cert-grid">
-            <button class="cert-thumb" data-cap="Spot Award" data-src="images/spotawards.jpg"><div class="img"><img src="images/spotawards.jpg" alt="Spot Award" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/spot-award-amazon.png'}))"></div><div class="cap">Spot Award<small>Amazon project</small></div></button>
-            <button class="cert-thumb" data-cap="Star Performer of the Month" data-src="images/star.jpg"><div class="img"><img src="images/star.jpg" alt="Star Performer of the Month" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/star-performer-month.png'}))"></div><div class="cap">Star Performer of the Month<small>TO THE NEW</small></div></button>
+            <button class="cert-thumb" data-cap="Spot Award" data-src="images/spotawards.jpg"><div class="frame"><div class="img"><img src="images/spotawards.jpg" alt="Spot Award certificate" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/spotawards.jpg'}))"></div></div><span class="zoom" aria-hidden="true">&#8599;</span><div class="cap">Spot Award<small>Amazon project</small></div></button>
+            <button class="cert-thumb" data-cap="Star Performer of the Month" data-src="images/star.jpg"><div class="frame"><div class="img"><img src="images/star.jpg" alt="Star Performer of the Month certificate" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/star.jpg'}))"></div></div><span class="zoom" aria-hidden="true">&#8599;</span><div class="cap">Star Performer of the Month<small>TO THE NEW</small></div></button>
           </div>
         </div>
         <div class="cert-role">
-          <h3>Software Engineer</h3>
-          <div class="cert-meta">TO THE NEW · Mar 2022 – Oct 2025</div>
+          <div class="cert-role-head"><h3>Software Engineer</h3><span class="cert-meta">TO THE NEW · Mar 2022 – Oct 2025</span><span class="cert-count">4 certificates</span></div>
           <div class="cert-grid">
-            <button class="cert-thumb" data-cap="Team Award" data-src="images/teamawards.jpg"><div class="img"><img src="images/teamawards.jpg" alt="Team Award" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/team-award-1.png'}))"></div><div class="cap">Team Award<small>Customer Delight</small></div></button>
-            <button class="cert-thumb" data-cap="Team Award" data-src="images/teamawards2.jpg"><div class="img"><img src="images/teamawards2.jpg" alt="Team Award" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/team-award-2.png'}))"></div><div class="cap">Team Award<small>Customer Delight</small></div></button>
-            <button class="cert-thumb" data-cap="Core Value" data-src="images/improvement.jpg"><div class="img"><img src="images/improvement.jpg" alt="Core Value" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/continuous-improvement.png'}))"></div><div class="cap">Core Value<small>Continuous Improvement</small></div></button>
-            <button class="cert-thumb" data-cap="Team Award" data-src="images/teamawards3.jpg"><div class="img"><img src="images/teamawards3.jpg" alt="Team Award" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/awards/team-award-3.png'}))"></div><div class="cap">Team Award<small>Customer Delight</small></div></button>
+            <button class="cert-thumb" data-cap="Team Award" data-src="images/teamawards.jpg"><div class="frame"><div class="img"><img src="images/teamawards.jpg" alt="Team Award certificate" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/teamawards.jpg'}))"></div></div><span class="zoom" aria-hidden="true">&#8599;</span><div class="cap">Team Award<small>Customer Delight</small></div></button>
+            <button class="cert-thumb" data-cap="Team Award" data-src="images/teamawards2.jpg"><div class="frame"><div class="img"><img src="images/teamawards2.jpg" alt="Team Award certificate" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/teamawards2.jpg'}))"></div></div><span class="zoom" aria-hidden="true">&#8599;</span><div class="cap">Team Award<small>Customer Delight</small></div></button>
+            <button class="cert-thumb" data-cap="Core Value" data-src="images/improvement.jpg"><div class="frame"><div class="img"><img src="images/improvement.jpg" alt="Core Value certificate" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/improvement.jpg'}))"></div></div><span class="zoom" aria-hidden="true">&#8599;</span><div class="cap">Core Value<small>Continuous Improvement</small></div></button>
+            <button class="cert-thumb" data-cap="Team Award" data-src="images/teamawards3.jpg"><div class="frame"><div class="img"><img src="images/teamawards3.jpg" alt="Team Award certificate" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'miss',textContent:'Add images/teamawards3.jpg'}))"></div></div><span class="zoom" aria-hidden="true">&#8599;</span><div class="cap">Team Award<small>Customer Delight</small></div></button>
           </div>
         </div>
       </div>
@@ -1386,12 +1425,16 @@
   <script>
   (function(){
     var th=[].slice.call(document.querySelectorAll('.cert-thumb')),lb=document.getElementById('lb'),im=lb.querySelector('img'),cp=lb.querySelector('figcaption'),i=0;
-    function show(n){i=(n+th.length)%th.length;var b=th[i];if(!b.querySelector('img')){return}im.src=b.dataset.src;im.alt=b.dataset.cap;cp.textContent=b.dataset.cap+' — '+b.querySelector('small').textContent;lb.classList.add('open');}
+    function ok(b){return !!b.querySelector('img')}
+    function show(n,d){d=d||1;for(var k=0;k<th.length;k++){i=(n+th.length)%th.length;if(ok(th[i]))break;n+=d;}
+      var b=th[i];if(!ok(b))return;im.src=b.dataset.src;im.alt=b.dataset.cap+' certificate';
+      cp.textContent=b.dataset.cap+' — '+b.querySelector('small').textContent;
+      var c=document.createElement('span');c.className='n';c.textContent=(i+1)+' / '+th.length;cp.appendChild(c);lb.classList.add('open');}
     th.forEach(function(b,n){b.addEventListener('click',function(){show(n)})});
     lb.querySelector('.x').onclick=function(){lb.classList.remove('open')};
-    lb.querySelector('.pv').onclick=function(){show(i-1)};lb.querySelector('.nx').onclick=function(){show(i+1)};
+    lb.querySelector('.pv').onclick=function(){show(i-1,-1)};lb.querySelector('.nx').onclick=function(){show(i+1,1)};
     lb.addEventListener('click',function(e){if(e.target===lb)lb.classList.remove('open')});
-    document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowLeft')show(i-1);if(e.key==='ArrowRight')show(i+1);});
+    document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowLeft')show(i-1,-1);if(e.key==='ArrowRight')show(i+1,1);});
   })();
   </script>
 
